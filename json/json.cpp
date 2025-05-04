@@ -158,10 +158,6 @@ Json JsonParser::parseBool() {
   static std::regex isFalse{"^false"};
 
   skipWhitespace();
-  // if (end_ - current_ > 3 && 0 == strcmp(current_, "true"))
-  //   return Json(true);
-  // else if (end_ - current_ > 4 && 0 == strcmp(current_, "false"))
-  //   return Json(false);
   if (std::regex_search(current_, isTrue)) {
     current_ += 4;
     return Json(true);
@@ -174,8 +170,13 @@ Json JsonParser::parseBool() {
 }
 
 Json JsonParser::parseNull() {
-  if (end_ - current_ > 3 && 0 == strcmp(current_, "null"))
+  static std::regex isNull{"^null"};
+  if (std::regex_search(current_, isNull)) {
+    current_ += 4;
     return Json();
+  }
+
+  throw JsonException("Parse null failed: ") << current_;
 }
 
 template <>
