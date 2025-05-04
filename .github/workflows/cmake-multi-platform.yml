@@ -77,5 +77,5 @@ jobs:
         if [[ "${{runner.os}}" == "Linux" ]]; then
           ./main
         elif [[ "${{runner.os}}" == "Windows" ]]; then
-          ./main.exe
+          ${{ steps.strings.outputs.build-output-dir }}/main.exe
         fi
