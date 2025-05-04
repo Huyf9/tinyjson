@@ -2,6 +2,8 @@
 
 &emsp;&emsp;一个玩具级别的Json解析工具。使用C++17实现。
 
+[![CMake on multiple platforms](https://github.com/Huyf9/tinyjson/actions/workflows/cmake-multi-platform.yml/badge.svg)](https://github.com/Huyf9/tinyjson/actions/workflows/cmake-multi-platform.yml)
+
 ## 如何使用
 
 ```cpp
