@@ -75,6 +75,6 @@ jobs:
       run: |
         if [[ "${{matrix.os}}" == "ubuntu-latest" ]]
           ./main
-        elif [[ "${{matrix.os}}" == "windows-latest" ]]
+        elif [[ "${{matrix.os}}" == "windows-latest" ]]; then
           .\main.exe
         fi
