@@ -3,6 +3,8 @@
 &emsp;&emsp;一个玩具级别的Json解析工具。使用C++17实现。
 
 [![CMake on multiple platforms](https://github.com/Huyf9/tinyjson/actions/workflows/cmake-multi-platform.yml/badge.svg)](https://github.com/Huyf9/tinyjson/actions/workflows/cmake-multi-platform.yml)
+[![language](https://img.shields.io/badge/Language-C++17-green)]()
+[![author](https://img.shields.io/badge/Author-hyf-blue)]()
 
 ## 如何使用
 
