@@ -103,7 +103,7 @@ public:
 private:
   // Skip whitespace
   void skipWhitespace() noexcept;
-  void consume() noexcept;
+  void advance() noexcept;
   void consume(char c);
 
   Json parseObject();

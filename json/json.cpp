@@ -2,6 +2,7 @@
 
 #include <regex>
 #include <cstdlib>
+#include <iostream>
 
 #ifdef __GNUC__
 #pragma GCC diagnostic push
@@ -22,7 +23,7 @@ void JsonParser::skipWhitespace() noexcept {
   }
 }
 
-void JsonParser::consume() noexcept {
+void JsonParser::advance() noexcept {
   ++current_;
 }
 
@@ -50,7 +51,7 @@ Json JsonParser::parseObject() {
   JsonObject obj;
   while (current_ < end_) {
     if (*current_ == '}') {
-      consume();
+      advance();
       return Json(std::move(obj));
     }
     
@@ -59,7 +60,7 @@ Json JsonParser::parseObject() {
 
     // More than one pair.
     if (*current_ == ',')
-      consume();
+      advance();
   }
 
   throw JsonException("Got unclosed json object.");
@@ -80,14 +81,14 @@ Json JsonParser::parseArray() {
   JsonArray arr;
   while (current_ < end_) {
     if (*current_ == ']') {
-      consume();
+      advance();
       return Json(std::move(arr));
     }
 
     arr.push_back(parseValue());
     skipWhitespace();
     if (*current_ == ',')
-      consume();
+      advance();
   }
 }
 
@@ -115,15 +116,22 @@ Json JsonParser::parseString() {
 
   const char* start = current_;
 
-  while (current_ < end_) {
-    if (*current_ == '"') {
-      consume();
-      return Json(start, current_ - start - 1);
+  while (*current_ != '"' && current_ < end_) {
+    if (*current_ == '\\') {
+      skipWhitespace();
+      advance();
+      switch (*current_) {
+        case '"': case '\\': case '/': case 'b':
+        case 'f': case 'n': case 'r': case 't':
+          break;
+        default: throw JsonException("Incalid escape sequence.");
+      }
     }
 
-    current_++;
+    advance();
   }
-  throw JsonException("Unparded string: ") << current_;
+  consume('"');
+  return Json(start, current_ - start - 2);
 }
 
 Json JsonParser::parseNumber() {
