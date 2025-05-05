@@ -3,7 +3,7 @@
 
 int main() {
   std::string source = 
-  "{\"k1\": 123, \"k2\": false, \"k3\": 1.23, \"k4\": \"value4\", \"k5\": [1, 2, 3], \"k6\": {\"sk1\": 456, \"sk2\": 4.56}}";
+  R"({"k1": 123, "k2": false, "k3": 1.23, "k4": "va\"lue4\"", "k5": [1, 2, 3], "k6": {"sk1": 456, "sk2": 4.56}})";
 
   Json json = Json::parse(source);
   int k1 = json["k1"];
